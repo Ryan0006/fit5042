@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"></link>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>Add User</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            Add User
+                        </div>
+
+                        <div class="form-horizontal">
+                            <h:form>
+                                <div class="form-group">
+                                    <h:outputLabel for="username" value="Username:"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="username" value="#{userBean.username}"  class="form-control" size="20" 
+                                                     required="true" requiredMessage="Please enter the username!">
+                                            <f:validateLength  maximum="15" />
+                                        </h:inputText>
+                                        <h:message for="username" class="text-warning" />
+                                    </div>
+                                    <div class="col-lg-4"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="firstName" value="First name:"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="firstName" value="#{userBean.firstName}"  class="form-control" size="20" 
+                                                     required="true" requiredMessage="Please enter the frist name!"
+                                                     validatorMessage="non-numeric characters with maximum length of 15">
+                                            <f:validateLength  maximum="15" />
+                                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                                        </h:inputText>
+                                        <h:message for="firstName"  class="text-warning"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="lastName" value="Last name:"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="lastName" value="#{userBean.lastName}"   class="form-control" size="20" 
+                                                     required="true" requiredMessage="Please enter the last name!"
+                                                     validatorMessage="non-numeric characters with maximum length of 15">
+                                            <f:validateLength  maximum="15" />
+                                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                                        </h:inputText>
+                                        <h:message for="lastName"  class="text-warning" />
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="password" value="Password:"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="password"  value="#{userBean.password}"  class="form-control" size="20" 
+                                                     required="true" requiredMessage="Please enter the password!"
+                                                     validatorMessage="requires 6 to 15 characters string with at least one digit, one upper case letter and one lower case letter">
+                                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15})" />
+                                        </h:inputText>
+                                        <h:message for="password" class="text-warning"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="email" value="Email"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="email" value="#{userBean.email}" class="form-control" size="20"  
+                                                     validatorMessage="Please enter a valid email">
+                                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                        </h:inputText>
+                                        <h:message for="email" class="text-warning"/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="address" value="Address"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="address" value="#{userBean.address}"  class="form-control" size="20" />
+                                    </div>
+                                    <div class="col-lg-4"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="phoneNumber" value="Phone number:"  class="col-lg-4 control-label"/>
+                                    <div class="col-lg-4">
+                                        <h:inputText id="phoneNumber" value="#{userBean.phoneNumber}" class="form-control" size="20"  
+                                                     validator="#{userBean.validatePhoneNumber}" />
+                                        <h:message for="phoneNumber" class="text-warning"/>
+                                    </div>
+                                    <div class="col-lg-4"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="userType" value="User Type:" class="col-lg-4 control-label"/>
+                                    <div class="col-lg-8 ">
+                                        <h:selectOneMenu id="userType" required="true" value="#{userBean.userType}" 
+                                                         class="btn btn-default dropdown-toggle" >
+                                                <f:selectItems value="#{userTypeBean.userTypes}" var="userType" 
+                                                               itemValue="#{userType}" itemLabel="#{userType.label}" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h:commandLink id="add" value="Submit" action="#{addUser.addNewUser()}" class="btn btn-info pull-right" />
+                                </div>
+                                <div class="col-lg-8"></div>
+
+                            </h:form>
+                            <div class="col-lg-12">
+                                <div class="col-lg-11">
+                                    <h:link value="Return" outcome="/bankworker/users" class="btn btn-link pull-right btn-lg"/>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+
+
+

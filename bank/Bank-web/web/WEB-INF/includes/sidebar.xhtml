@@ -1,0 +1,23 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <aside id="side-menu" class="aside" role="navigation">   
+        <ul class="nav nav-list accordion">  
+            <h:form>
+                <ui:repeat id="Myrepeat" value="#{currentUser.menuOptions}" var="option" varStatus="status"
+                           class="nav nav-list accordion">
+                    <li class="nav-header">
+                        <div class="link">
+                            <i class="fa fa-lg fa-globe"></i>
+                            <h:commandLink value="#{option}" action="#{currentUser.navigate(option)}"/>
+                            <i class="fa fa-chevron-down"></i>
+                        </div>
+                    </li>
+                </ui:repeat>
+            </h:form>
+        </ul>
+    </aside>
+</ui:composition>

@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>User Management</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            User Management
+                        </div>
+
+                        <div class="col-lg-12">
+                            <h:form>
+                                <hr/>
+                                <div>
+                                    <h:outputText id="search_lbl" value="Search by " class="text-info"/>
+                                    <h:selectOneMenu id="search_menu" value="#{userController.selectedOption}" class="btn-default space">
+                                        <f:selectItems value="#{userController.searchOptions}"/>
+                                    </h:selectOneMenu>
+                                    <h:inputText id="search_input" value="#{userController.keyword}" size="20"
+                                                 converterMessage="invalid id">
+                                        <f:convertNumber integerOnly="true"/>
+                                    </h:inputText>
+                                    <h:message for="search_input" class="text-warning"/>
+                                    <h:commandButton id="search_bt" value="search" action="#{userController.search()}" 
+                                                     class="btn btn-info btn-sm space"/>
+                                </div>
+                                <hr/>
+                                <div>
+                                    <h:outputText value="Id: " class="text-info"/>
+                                    <h:inputText id="input_id" value="#{userController.userId}" size="7" 
+                                                 converterMessage="invalid id">
+                                        <f:convertNumber integerOnly="true"/>
+                                    </h:inputText>
+                                    <h:message for="input_id" class="text-warning"/>
+                                    <h:outputText value=" first name: " class="text-info"/>
+                                    <h:inputText id="input_firstname" value="#{userController.firstName}" size="10" />
+                                    <h:outputText value=" last name: " class="text-info"/>
+                                    <h:inputText id="input_lastname" value="#{userController.lastName}" size="10" />
+                                    <h:outputText value=" user type: " class="text-info"/>
+                                    <h:selectOneMenu id="type_menu" value="#{userController.selectedType}" class="btn-default">
+                                        <f:selectItems value="#{userController.types}" />
+                                    </h:selectOneMenu>
+                                    <h:outputText value=" Email: " class="text-info"/>
+                                    <h:inputText id="input_email" value="#{userController.email}" size="20" />
+                                    <h:commandButton id="combsearch_bt" value="combination search" action="#{userController.combinationSearch()}"
+                                                     class="btn btn-info btn-sm space"/>
+                                </div>
+                                <hr/>
+                                <div>
+                                    <h:commandButton id="view_all" value="View all" action="#{userController.viewAll()}" 
+                                                     class="btn btn-link btn-lg"/>
+                                </div>
+                            </h:form>
+
+
+                            <div>
+                                <h:outputText id="no_result" value="No user found" class="text-warning" 
+                                              rendered="#{not userController.showForm}"/>
+                            </div>
+                            <div class="row">
+                                <h:form rendered="#{userController.showForm}">
+                                    <table id="MyTable" class="table table-bordered table-striped">
+                                        <tr>
+                                            <th >User ID</th>
+                                            <th >Username</th>
+                                            <th >First Name</th>
+                                            <th >Last Name</th>
+                                            <th >Email</th>
+                                            <th >Detail</th>
+                                            <th >Edit</th>
+                                            <th >Delete</th>
+                                        </tr>
+                                        <tbody>
+                                            <ui:repeat id="Myrepeat" value="#{userController.users}" var="user" varStatus="status">
+                                                <tr>
+                                                    <td>
+                                                        <h:outputText id="userId" value="#{user.userId}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="username" value="#{user.username}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="firstName" value="#{user.firstName}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="lastName" value="#{user.lastName}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="email" value="#{user.email}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandLink id="detail" value="details" action="userdetail" >
+                                                            <f:param name="userId" value="#{user.userId}"/>
+                                                        </h:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandLink id="edit" value="edit" action="#{editUser.initId()}" >
+                                                            <f:param name="userId"  value="#{user.userId}"></f:param>
+                                                        </h:commandLink>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandLink id="delete" value="delete" action="#{userController.deleteUser(user.userId)}"/>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>  
+                                </h:form>
+                            </div>
+
+                            <div>
+                                <h:link value="Add user" outcome="/bankworker/adduser" class="btn btn-info"/> 
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+
+

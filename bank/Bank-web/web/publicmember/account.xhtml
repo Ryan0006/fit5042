@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>View account</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar"></div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            Account Management
+                        </div>
+                        <div class="col-lg-12">
+                            <h:form>
+                                <div>
+                                    <h:outputText id="no_result" value="You have no account" rendered="#{not accountController.showForm}"
+                                                  class="text-warning"/>
+                                </div>
+
+                                <h:panelGroup rendered="#{userController.showForm}">
+                                    <table id="MyTable" class="table table-bordered table-striped">
+                                        <tr>
+                                            <th >Card No</th>
+                                            <th >Owner</th>
+                                            <th >Balance</th>
+                                            <th >Manage your account</th>
+                                        </tr>
+                                        <tbody>
+                                            <ui:repeat id="Myrepeat" value="#{accountController.accounts}" var="account" varStatus="status">
+                                                <tr>
+                                                    <td>
+                                                        <h:outputText id="cardNo" value="#{account.cardNo}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="name" value="#{account.owner.firstName} #{account.owner.lastName}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="balance" value="#{account.balance}">
+                                                            <f:convertNumber pattern="#0.00" />
+                                                        </h:outputText>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandLink id="manage" value="manage" action="#{manage.init()}" class="btn btn-link">
+                                                            <f:param name="cardNo" value="#{account.cardNo}"/>
+                                                        </h:commandLink>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>  
+                                </h:panelGroup>
+                            </h:form>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+
+

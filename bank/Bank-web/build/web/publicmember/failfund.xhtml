@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>Transaction Failed</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            Transaction Failed
+                        </div>
+                   
+                        <div class="col-lg-12">
+                            <div>
+                                <h:outputText value="Insufficient balance!" class="text-danger h3"/>
+                                <br/>
+                                <h:outputText id="fail" value="You only have $#{manage.account.balance} in card No.#{manage.account.cardNo}"
+                                              class="text-danger h4"/>
+                            </div>
+                            <div>
+                                <h:link value="Return" outcome="/publicmember/account" class="btn btn-link pull-right btn-lg"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+
+

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+
+        <title>Log in</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="resources/js/login.js" type="text/javascript"></script>
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container" ng-app="loginApp" ng-controller="loginController">
+                <div class="navbar-header">
+                    <h:outputText value="Banking System" class="navbar-brand" />
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <h:form id="redirect" class="navbar-form navbar-right" rendered="#{login.login}">
+                        <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" class="text-primary"/>
+                        <h:commandLink id="logout" value="log out" action="#{currentUser.logout()}"  
+                                       class="btn btn-success space" />
+                        <h:commandLink  value="home" action="#{currentUser.redirect()}" 
+                                        class="btn btn-success" />
+                    </h:form>
+                    <form action="j_security_check" method="POST" class="navbar-form navbar-right" ng-show="IsVisible">
+
+                        <div class="form-group">
+                            <input type="text" name="j_username" class="form-control" placeholder="username"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="j_password" class="form-control" placeholder="password"/>
+                        </div>
+                        <input type="submit" value="log in"  class="btn btn-success space" />
+
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <ui:include src="/WEB-INF/includes/header.xhtml" />
+
+        <div class="container">
+            <ui:include src="/WEB-INF/includes/content.xhtml" />
+            <ui:include src="/WEB-INF/includes/footer.xhtml" />
+        </div>
+
+    </h:body>
+</html>

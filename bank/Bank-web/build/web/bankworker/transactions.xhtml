@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <script src="../resources/js/transaction.js" type="text/javascript"></script>
+        <title>Transaction Management</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container" >
+                        <div class="text-info h3">
+                            Transaction Management
+                        </div>
+
+                        <div class="col-lg-12" >
+                            <h:form>
+                                <div>
+                                    <h:outputText id="search_lbl" value="Search by " class="text-info"/>
+                                    <h:selectOneMenu id="search_menu" value="#{transController.selectedOption}" class="btn-default space">
+                                        <f:selectItems value="#{transController.searchOptions}" />
+                                    </h:selectOneMenu>
+                                    <h:inputText id="search_input" value="#{transController.keyword}"/>
+                                    <h:message for="search_input"/>
+                                    <h:commandButton id="search_bt" value="search" action="#{transController.search()}" 
+                                                     class="btn btn-info btn-sm space"/>
+                                </div>
+                            </h:form>
+                            <h:form>
+                                <div>
+                                    <h:commandButton id="view_all" value="View all" class="btn btn-link"/>
+                                </div>
+                            </h:form>
+
+                            <div>
+                                <h:outputText id="no_result" value="No transaction found" rendered="#{not transController.showForm}"/>
+                            </div>
+
+                            <h:form rendered="#{transController.showForm}">
+                                <table id="transtable" class="table table-bordered table-striped">
+                                    <tr>
+                                        <th>Transaction No</th>
+                                        <th>Transaction Name</th>
+                                        <th>View detail</th>
+                                    </tr>
+                                    <tbody>
+                                        <ui:repeat id="Myrepeat" value="#{transController.transactions}" var="transaction" varStatus="status">
+                                            <tr >
+                                                <td>
+                                                    <h:outputText id="transNo" value="#{transaction.transactionNo}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="transName" value="#{transaction.transactionName}"/>
+                                                </td>
+                                                <td>
+                                                    <button type="button"  class="btn-link">details</button>
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td colspan="3" class="detail">
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="Transaction No: " class="pull-right"/> 
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="#{transaction.transactionNo}" class="pull-left"/>
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="Transaction name: " class="pull-right"/> 
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="#{transaction.transactionName}" class="pull-left"/>
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="Transaction type: " class="pull-right"/> 
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="#{transaction.transactionType}" class="pull-left"/>
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="Description: " class="pull-right"/> 
+                                                    </div>
+                                                    <div class="text-info col-lg-6 ">
+                                                        <h:outputText value="#{transaction.description}" class="pull-left"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table> 
+
+                            </h:form>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+
+
+    </h:body>
+</html>
+
+
+

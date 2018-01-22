@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>Transaction Types</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            Transaction Types
+                        </div>
+
+                        <div class="col-lg-12">
+                            <h:form id="Myform">
+                                <div class="row">
+                                    <table id="MyTable" class="table table-bordered table-striped">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Type</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        <tbody>
+                                            <ui:repeat id="Myrepeat" value="#{typeController.types}" var="type" varStatus="status">
+                                                <tr>
+                                                    <td>
+                                                        <h:outputText id="typeId" value="#{type.transTypeId}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:outputText id="type" value="#{type.type}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandButton id="delete" value="delete" action="#{typeController.deleteType(type)}"
+                                                                         class="btn btn-link">
+                                                            <f:ajax execute="@form" render="@form"/>
+                                                        </h:commandButton>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>  
+                                </div>
+                            </h:form>
+                            <h:form>
+                                <div>
+                                    <h:outputText value="Add new transaction type" class="text-info h4"/>
+                                    <br/><br/>
+                                    <h:inputText id="add" value="#{typeController.type}" validator="#{typeController.validateAddType}"/> 
+                                    <h:message for="add" class="text-danger"/>
+                                    <br/><br/>
+                                    <h:commandButton id="submit" value="Submit" action="#{typeController.addType()}" class="btn btn-info"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+
+
+
+

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/menu.css" />
+        <h:outputStylesheet name="css/common.css" />
+        <title>User details</title>
+    </h:head>
+    <h:body>
+        <div class="wrap">
+            <ui:include src="/WEB-INF/includes/navbar.xhtml"/>
+            <ui:include src="/WEB-INF/includes/sidebar.xhtml"/>
+            <div class="content">
+                <div class="top-bar">
+                </div>
+                <section class="content-inner">
+                    <div class="container">
+                        <div class="text-info h2">
+                            User details
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div><h:outputText value="User ID: " class="text-info h4"/> 
+                                <h:outputText value="#{userDetail.user.userId}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Username: " class="text-info h4"/> 
+                                <h:outputText value="#{userDetail.user.username}" class="text-success h4"/></div> 
+                            <div><h:outputText value="First Name: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.firstName}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Last Name: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.lastName}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Password: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.password}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Phone Number: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.phoneNumber}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Email: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.email}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Address: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.address}" class="text-success h4"/></div> 
+                            <div><h:outputText value="User type: " class="text-info h4"/>
+                                <h:outputText value="#{userDetail.user.userType}" class="text-success h4"/></div> 
+                            <div><h:outputText value="Accounts: " class="text-info h4" 
+                                               rendered="#{userDetail.publicMember}"/></div> 
+                            <h:form rendered="#{userDetail.publicMember}">
+                                <table id="table_account" class="table table-bordered table-striped">
+                                    <tr>
+                                        <th >Card No</th>
+                                        <th >Balance</th>
+                                    </tr>
+                                    <tbody>
+                                        <ui:repeat id="Myrepeat_account" value="#{userDetail.accounts}" var="account" varStatus="status">
+                                            <tr>
+                                                <td>
+                                                    <h:outputText id="cardNo" value="#{account.cardNo}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="balance" value="#{account.balance}">
+                                                        <f:convertNumber pattern="#0.00" />
+                                                    </h:outputText>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>  
+                            </h:form>
+
+                            <div><h:outputText value="Transactions: " class="text-info h4" 
+                                               rendered="#{userDetail.publicMember}"/></div> 
+                            <h:form rendered="#{userDetail.publicMember}">
+                                <table id="table_transaction" class="table table-bordered table-striped">
+                                    <tr>
+                                        <th >Transaction No</th>
+                                        <th >Transaction name</th>
+                                        <th >Description</th>
+                                    </tr>
+                                    <tbody>
+                                        <ui:repeat id="Myrepeat_transaction" value="#{userDetail.transactions}" var="transaction" varStatus="status">
+                                            <tr>
+                                                <td>
+                                                    <h:outputText id="transNo" value="#{transaction.transactionNo}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="transName" value="#{transaction.transactionName}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="transDesc" value="#{transaction.description}"/>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>  
+                            </h:form>
+
+                            <div><h:outputText value="Activities: " class="h4" 
+                                               rendered="#{not userDetail.publicMember}"/></div> 
+                            <h:form rendered="#{not userDetail.publicMember}">
+                                <table id="table_activity" class="table table-bordered table-striped">
+                                    <tr>
+                                        <th >Id</th>
+                                        <th >Type</th>
+                                        <th >Time</th>
+                                        <th >Description</th>
+                                    </tr>
+                                    <tbody>
+                                        <ui:repeat id="Myrepeat_account" value="#{userDetail.activities}" var="activity" varStatus="status" >
+                                            <tr>
+                                                <td>
+                                                    <h:outputText id="activityId" value="#{activity.activityId}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="activityType" value="#{activity.activityType}"/>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="activityTime" value="#{activity.time}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                    </h:outputText>
+                                                </td>
+                                                <td>
+                                                    <h:outputText id="activityDes" value="#{activity.description}"/>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </h:form>
+                            <div>
+                                <h:link value="Return" outcome="/bankworker/users" class="btn btn-link pull-right btn-lg"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>  
+
+        </div>
+    </h:body>
+</html>
+
+

@@ -1,0 +1,17 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <nav class="nav-bar navbar-inverse" role="navigation">
+        <div id ="top-menu" class="container-fluid active">
+            <h:outputText value="Banking System" class="navbar-brand"/>
+            <h:form  class="navbar-form navbar-right">
+                <h:outputText value="#{currentUser.user.firstName} #{currentUser.user.lastName}" class="text-primary"/>
+                <h:commandLink id="logout" value="Log out" action="#{currentUser.logout()}"  
+                               rendered="#{currentUser.login}" class="btn btn-success space" />
+            </h:form>
+        </div>      
+    </nav>
+</ui:composition>
